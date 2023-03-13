@@ -133,8 +133,35 @@ function binarySearch(arr: number[], num: number){
 В плане идеи того, как она работает, — довольно понятная. Однако затратная: время работы такой сортировки — $$O(n^2)$$
 Идея: каждый раз, проходясь по массиву, ищем самый маленький по значению элемент. В результате нахождения элемента — закидываем его в новый массив, а в старом исключаем. И так проходимся до тех пор, пока массив не станет пустым. 
 
-```
-ЗДЕСЬ ДОЛЖНАЯ БЫТЬ РЕАЛИЗАЦИЯ НА JAVASCRIPT
+```js
+function findSmallest(arr){
+	let smallest = arr[0];
+	let index = 0;
+	arr.forEach((element, i)=>{
+		if (smallest > element){
+			smallest = element;
+			index = i;
+		}
+	})
+	return index;
+}
+function selectionSort(arr){
+	let newArray = [];
+	while(arr.length > 0){
+		let smallest = findSmallest(arr);
+		newArray.push(arr[smallest]);
+		arr.splice(smallest, 1);
+	}
+  return newArray;
+}
+
+
+let array = [];
+for(let i = 0; i < 30; i++) {
+  array.push(Math.floor(Math.random() * 100) + 1);
+}
+console.log(array);
+console.log(selectionSort(array));
 ```
 
 ## 3. Рекурсия
@@ -214,4 +241,3 @@ foo();
 Собственно, в связи с тем, что стек вызовов может разрастаться, рекурсивная функция может быть не самым лучшем решением в той или иной задаче. 
 
 Однако рекурсия может облегчить понимание кода программисту. Поэтому в зависимости от задачи стоит думать, что выбрать: легкость понимания благодаря рекурсии или эффективность работы благодаря циклу. 
-
