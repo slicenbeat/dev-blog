@@ -244,3 +244,96 @@ foo();
 
 ## 4. Быстрая сортировка
 
+### «Разделяй и властвуй»
+
+«Разделяй и властвуй» — подход для решения задач, использующий рекурсию. Подход состоит из следующих шагов: 
+1. Определить базовый случай решения задачи.
+2. Свести задачу к базовому случаю.
+
+В книге «разделяй и властвуй» используется для определения максимального квадратного кусочка земельного участка. 
+
+Базовый случай — кусочек участка делится на два одинаковых квадрата. 
+Сводим решение к базовому случаю следующим образом: 
+1. определяем максимальную длину стороны квадрата для текущего участка. 
+2. Разделяем. 
+3. К оставшемуся кусочку применяем пункты 1-2 до тех пор, пока не дойдем до базового случая.
+
+#### Вычисление суммы чисел
+
+```js
+function sum(array){
+  let res = 0; 
+  if (array.length === 0){
+    return res;
+  }
+  else {
+    res += array[0] + sum(array.slice(1));
+  }
+  return res;
+}
+let array = [1, 2, 3, 4, 5, 6];
+console.log(sum(array));
+```
+
+### Подсчет количества элементов
+
+```js
+function countElements(array){
+  let count = 0; 
+  if (array.length === 0){
+    return count;
+  }
+  else {
+    count += 1 + countElements(array.slice(1));
+  }
+  return count;
+}
+let array = [1, 2, 3, 4, 5, 6];
+console.log(countElements(array));
+```
+
+### Наибольшее число в списке
+
+```js
+function max(array){
+  if (array.length === 0){
+    return "Наибольшего элемента нет";
+  }
+  let maxElement = array[0];
+  if (array.length === 1){
+    return maxElement;
+  }
+  else {
+    let tempElement = max(array.slice(1));
+    return tempElement > maxElement ? tempElement : maxElement; 
+  }
+}
+let array = [2, 2, 3, 4, 5];
+console.log(max(array));
+```
+
+### Бинарный поиск
+
+Базовый случай — если `midElement` равен `element`.
+В зависимости от того, `mid` больше правой границы или меньше левой, вызываем метод рекурсивно, передавая соответствующую половину массива. 
+
+```js
+function binarySearch(array, element) {
+    let low = 0;
+    let high = array.length - 1;
+
+    let mid = Math.floor((high - low) / 2);
+    let midElement = array[mid];
+    if (midElement === element) {
+        return mid;
+    }
+    if (midElement > element) {
+        return binarySearch(array.slice(0, mid));
+    } else {
+        return binarySearch(array.slice(mid + 1));
+    }
+}
+console.log(binarySearch([1, 2, 3, 44, 100, 10011, 343333], 44));
+
+```
+
